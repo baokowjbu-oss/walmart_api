@@ -41,7 +41,11 @@ During the profling of the data to find correlations between `reorder_point` and
 
 
 3) **Data Warehousing & Dimension Modeling (ELT) (Note that since this is a synthetic randomly generated dataset so this part is a bit long because there are a lot of fixing and logic mapping)**
+
+
 ![alt text](images/star_schema.png)
+
+
 *Phases:*
   1. `01_create_dim_store.sql`, The synthetic source data contained referential integrity violations, 1 `store_id` would be mapped to multiple cities. I used an aggregation (ANY_VALUE) to force a strict 1-to-1 relationship, ensuring the dimension table's primary key remained unique.
   2. `02_create_dim_product.sql`, The same case with `dim_store`
