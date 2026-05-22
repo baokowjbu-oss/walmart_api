@@ -41,6 +41,7 @@ During the profling of the data to find correlations between `reorder_point` and
 
 
 3) **Data Warehousing & Dimension Modeling (ELT) (Note that since this is a synthetic randomly generated dataset so this part is a bit long because there are a lot of fixing and logic mapping)**
+![alt text](images/star_schema.png)
 *Phases:*
   1. `01_create_dim_store.sql`, The synthetic source data contained referential integrity violations, 1 `store_id` would be mapped to multiple cities. I used an aggregation (ANY_VALUE) to force a strict 1-to-1 relationship, ensuring the dimension table's primary key remained unique.
   2. `02_create_dim_product.sql`, The same case with `dim_store`
@@ -52,14 +53,14 @@ During the profling of the data to find correlations between `reorder_point` and
   8. `08_create_fact_transaction`, no problem here, just need to convert the TIMESTAMP to date_id format (INT64)
   9. `09_create_fact_inventory`, i design it to be a Periodic Snapshot Fact Table. So that for each product from each store in a day, `inventory_level` is captured for them. Since the dataset is highly synthetic and make no real world sense, i try to introduce some logic by taking the smallest `inventory_level` of each day (since it would only make sense if an inventory of a product should be quite low in the end of the day), so that `inventory_level` tells about a inventory level of each product from a store in a day.
 
-4) **Machine Learning Pipeline**
+1) **Machine Learning Pipeline**
 - Used one-hot encoding to transform categorical columns to feed machine learning algorithm
 - Transform bool column `is_holiday` to integer 1 and 0
 - Feed the prepped data to the `Random Forest Regressor` taking account columns such as `is_holiday`(e.g: sales usually goes up in holiday), `weather_conditions`(e.g: umbrella sales usually goes up in rainy days ), `weekday` (e.g: people usually buy stuff at the weekend), `promotion_type` (e.g: promotion drive price lower, giving that product a better sale)
 - Ran Mean Absolute Error, Mean Square Error and R square for evaluation. Given the nature of synthetic dataset, it is no suprised that the precision was bad, so the model perform worse than simply predicting value with mean
 - Use joblib to load into pkl file and upload it to drive for downloading
 
-5) **API Endpoint Setup**
+1) **API Endpoint Setup**
 - Use render to host a server
 - Use FastAPI to create API endpoints, and load the machine learning model, ran SQL to report data such as best/worst selling product and top/worst store based on their total sales, most paying customer based on his/her spending. Finally sales data (revenue, profit, cost, gross margin) depending on user input date. 
 - Use render to host a web service
