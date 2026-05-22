@@ -10,6 +10,7 @@
 - `Scikit-learn`
 - `Pandas`
 
+![alt text](images/architecture_img.png)
 
 🌐**FastAPI Render Web Service**:
 
