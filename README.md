@@ -21,6 +21,8 @@ This project will use Google Bigquery for its data warehouse storage. The data w
 
 
 2) **Data Profiling & Quality Assessment**
+
+
 During the profling of the data to find correlations between `reorder_point` and `reorder_quantity`, `inventory_level` and `actual_demand`, the data suggests that there is lack of real world logic about them. The `reorder_point` supposed to suggest the need to restock supply for a specific item in the store, but the observation make no sense, reorder point would sometimes go up when demands and inventory drop, and sometimes go down when demands rises. This suggest the dataset contain synthetic, randomized data. This conclusion is also more concrete when looking at the correlation of unit price of a store given a specific product and customer loyalty point, there seems to be no price logic involving the product, furthermore solidifying the conclusion.
 
 ```SQL
@@ -41,7 +43,7 @@ During the profling of the data to find correlations between `reorder_point` and
 ![alt text](images/logic_flaw2.png)
 
 
-3) **Data Warehousing & Dimension Modeling (ELT) (Note that since this is a synthetic randomly generated dataset so this part is a bit long because there are a lot of fixing and logic mapping)**
+1) **Data Warehousing & Dimension Modeling (ELT) (Note that since this is a synthetic randomly generated dataset so this part is a bit long because there are a lot of fixing and logic mapping)**
 
 
 ![alt text](images/star_schema.png)
