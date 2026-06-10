@@ -4,11 +4,10 @@
 - `Python`
 - `SQL`
 - `Google BigQuery`
-- `Jupyter Notebook`
-- `FastAPI`
-- `Render.com`
-- `Scikit-learn`
 - `Pandas`
+- `FastAPI`
+- `Render`
+- `Scikit-learn`
 
 ![alt text](images/architecture_img.png)
 
@@ -19,6 +18,8 @@
 You can check out this link to get the data. Note that `predict` is the API endpoint for the machine learning model.
 
 This project will use Google Bigquery for its data warehouse storage. The data warehouse is structured using Star Schema to minimize storage and optimize perfomance for analysis tool, (see `section 3`). After that is the cleaning and data prepping for the machine learning (see `Section 4`). Finally this project run SQL to report on the business perfomance by revenue, profit, top selling product, worst selling store, ... and implement a servers to host API endpoints for those functions (see `section 5`)
+
+
 2) **Data Profiling & Quality Assessment**
 During the profling of the data to find correlations between `reorder_point` and `reorder_quantity`, `inventory_level` and `actual_demand`, the data suggests that there is lack of real world logic about them. The `reorder_point` supposed to suggest the need to restock supply for a specific item in the store, but the observation make no sense, reorder point would sometimes go up when demands and inventory drop, and sometimes go down when demands rises. This suggest the dataset contain synthetic, randomized data. This conclusion is also more concrete when looking at the correlation of unit price of a store given a specific product and customer loyalty point, there seems to be no price logic involving the product, furthermore solidifying the conclusion.
 
